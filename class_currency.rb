@@ -29,4 +29,8 @@ class Currency
       puts 'Different Currency Code Error'
     end
   end
+
+  def multiply(number)
+    Currency.new(@currency_code, @amount * number)
+  end
 end
