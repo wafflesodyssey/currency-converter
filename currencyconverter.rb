@@ -1,15 +1,8 @@
 #start, converting currencies
-
 #0.021 PHP to USD
-PHP = 0.021
-USD = 1.00
+require_relative 'class_currency.rb'
 
-
-class Money
-  currency_converter.convert(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
-
-
-def PHP (money, value)
-  @money
-  @value
-end
+class Currencyconverter
+    def initialize(currency_rates)
+        @conversion_rate = currency_rates
+    end
