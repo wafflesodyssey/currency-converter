@@ -6,7 +6,11 @@ class Currency
     @amount = amount
   end
 
-  def
-    #code
+  def get currency_code # method to get currency code
+    @currency_code
+  end
+
+  def get amount # method to get amount 
+    @amount
   end
 end
