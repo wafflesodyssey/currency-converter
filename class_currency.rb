@@ -6,31 +6,42 @@ class Currency
     @amount = amount
   end
 
-  def get currency_code # method to get currency code
-    @currency_code
-  end
-
-  def get amount # method to get amount
+  def amount
     @amount
   end
 
-  def add(add_code, add_amount)
-    if @currency_code == add_code
-      @amount += add_amount
+  def currency_code
+    @currency_code
+  end
+
+  def +(other)
+    if other.currency_code == self.currency_code
+      new_amount = @amount + other.amount
+      Currency.new(@currency_code, new_amount)
+    else
+      puts 'Different Currency Code Error'
+      raise
+    end
+  end
+
+  def -(other)
+    if other.currency_code == self.currency_code
+      new_amount = @amount - other.amount
+      Currency.new(@currency_code, new_amount)
     else
       puts 'Different Currency Code Error'
     end
   end
 
-  def subtract(subtract_code, subtract_amount)
-    if @currency_code == subtract_code
-      @amount -= subtract_amount
-    else
-      puts 'Different Currency Code Error'
-    end
+  def ==(other)
+    self.currency_code == other.currency_code && self.amount == other.amount
   end
 
   def multiply(number)
     Currency.new(@currency_code, @amount * number)
+  end
+
+  def display
+    puts "#{@currency_code} #{@amount}"
   end
 end
