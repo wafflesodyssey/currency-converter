@@ -1,6 +1,5 @@
 require 'minitest/autorun'
 require './class_currency'
-require './standard_error'
 require 'pry'
 class CurrencyTest < Minitest::Test
   def test_the_truth
@@ -38,7 +37,6 @@ class CurrencyTest < Minitest::Test
   end
 
   # Should be able to be subtracted by another Currency object with the same currency code
-
   def test_should_be_able_to_subtract
     currency1 = Currency.new("USD", 1.0)
     currency2 = Currency.new("USD", 5.0)
@@ -46,11 +44,23 @@ class CurrencyTest < Minitest::Test
   end
 
   # Should raise a DifferentCurrencyCodeError when you try to add or subtract two Currency objects with different currency codes.
-
   def test_should_raise_an_error
     currency1 = Currency.new("USD", 1.0)
     currency2 = Currency.new("EUR", 5.0)
 
     assert_raises(Exception) { currency1.+(currency2) }
+  end
+
+  # Should be able to be multiplied by a Fixnum or Float and return a Currency object
+  def test_should_multiply_by_a_Fixnum_or_Float
+    currency1 = Currency.new("USD", 4.0)
+
+    assert_equal Currency.new("USD", 12.0), currency1 * 3
+  end
+
+  def test_currency_should_round_up_to_two_decimal_digits
+    assert_equal Currency.new("USD", 12.499).amount, 12.50
+    assert_equal Currency.new("USD", 11.001).amount, 11.00
+    assert_equal Currency.new("USD", 12.56).amount, 12.56
   end
 end

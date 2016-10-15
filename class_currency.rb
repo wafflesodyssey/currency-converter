@@ -1,17 +1,11 @@
 # For storing currencies
 
 class Currency
+  attr_reader :currency_code, :amount
+
   def initialize(currency_code, amount)
     @currency_code = currency_code
-    @amount = amount
-  end
-
-  def amount
-    @amount
-  end
-
-  def currency_code
-    @currency_code
+    @amount = amount.round(2)
   end
 
   def +(other)
@@ -19,8 +13,7 @@ class Currency
       new_amount = @amount + other.amount
       Currency.new(@currency_code, new_amount)
     else
-      puts 'Different Currency Code Error'
-      raise
+      raise DifferentCurrencyCodeError
     end
   end
 
@@ -29,19 +22,22 @@ class Currency
       new_amount = @amount - other.amount
       Currency.new(@currency_code, new_amount)
     else
-      puts 'Different Currency Code Error'
+      raise DifferentCurrencyCodeError
     end
   end
 
   def ==(other)
-    self.currency_code == other.currency_code && self.amount == other.amount
+    self.currency_code == other.currency_code &&
+      self.amount == other.amount
   end
 
-  def multiply(number)
+  def *(number)
     Currency.new(@currency_code, @amount * number)
   end
 
-  def display
-    puts "#{@currency_code} #{@amount}"
+  def to_s
+    "#{@currency_code} #{@amount}"
   end
 end
+
+DifferentCurrencyCodeError = Class.new(StandardError)
